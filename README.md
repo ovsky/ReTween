@@ -1,7 +1,6 @@
-# ReTween
+# 📦 ReTween - Fastest Unity and .NET Tweening Solution 
 
 ![ReTween Logo](https://i.postimg.cc/150Fwqkd/ellipse1ss275.png)
-
 
 ReTween is blazing fast, modular and really simple Tweening System for Unity.
 
@@ -9,7 +8,9 @@ This plugin is not ispired by market-leading DoTween, beacuse we think that the 
 
 Beacuse of that, the structure of writing Tweens is quite different than in DoTween - way more clear and elegant. But we do not rule out that in the future we will run an overlay that allows you to use ReTween, like DoTween - for people which are used to using DoTween.
 
-## QuickStart
+[Benchmarks comparing ReTween and DoTween will be available shortly]
+
+## 📖 QuickStart
 
 ### ReTween:
 
@@ -22,13 +23,13 @@ Tween.Position(someTransform, Vector3.right);
 
 Pretty easy, yeah?
 
-### ReExtensions:
+### 🗂️ ReExtensions:
 ReTween supports also extensions like: 
 `ReTween.Next()` in which you define the next action, after reffered. 
 `ReTween.SetEase()` where you can set easing mode, after creating a `Tween`.
 And more...
 
-### ReModules:
+### 📚 ReModules:
 
 You can create new ReModule by writing new script in ReTween/Modules that will use the Tween.Add() method, and create new `Action<float>`, where the `float` is easing time, from 0 to 1.
 
@@ -53,7 +54,7 @@ public static void Color(Image image, Color target, float duration = 1f, float d
 ```
 
 
-### Ease / Easing:
+### 📘 Ease / Easing:
 
 #### How easing works?
 
@@ -71,8 +72,50 @@ Easing Visualisation:
 In every field you have used AnimationCurve, you can use Ease as the replacement, without changing the implementation. 
 The most important difference is that Eases has many predefined, basic values, a bank of custom definition, and that they are completely garbage-free, and made with optimisation in-mind. 
 
+### ⏩ Supported high-performace Ease Calculations:
 
-## API Reference
+**ReTween** provides implementation of 27 high-performance math patterns for easing types:
+
+```csharp
+
+public enum EaseType
+{
+    Linear = 0,
+    QuadIn = 1,
+    QuadOut = 2,
+    QuadInOut = 3,
+    CubicIn = 4,
+    CubicOut = 5,
+    CubicInOut = 6,
+    QuartIn = 7,
+    QuartOut = 8,
+    QuartInOut = 9,
+    QuintIn = 10,
+    QuintOut = 11,
+    QuintInOut = 12,
+    BounceIn = 13,
+    BounceOut = 14,
+    BounceInOut = 15,
+    ElasticIn = 16,
+    ElasticOut = 17,
+    ElasticInOut = 18,
+    CircularIn = 19,
+    CircularOut = 20,
+    CircularInOut = 21,
+    SinusIn = 22,
+    SinusOut = 23,
+    SinusInOut = 24,
+    ExponentialIn = 25,
+    ExponentialOut = 26,
+    ExponentialInOut = 27,
+    // Custom = 28,
+}
+
+```
+
+
+## 📗 API Reference
+
 #### The structure of basic *TweenAction*:
 
 | TweenAction | Type     | Description                |
@@ -83,16 +126,17 @@ The most important difference is that Eases has many predefined, basic values, a
 | `duration` | `float` | Duration of tweening process. |
 | `ease` | `Ease` | Selected Ease, to make tweening more pretty.  |
 
-#### Real Usage:
-<details><summary>Preview</summary>
 
-2D Animations:
+## 📝 License:
 
-![](https://i.ibb.co/z64s7DK/Follow-Through-anim.gif)
+Copyright (c) 2023 - Przemysław Orłowski
 
-![](https://i.ibb.co/YtfQkfb/Secondary-Action-anim.gif)
-@eringreenawald
+License: 
 
-</details>
+"THE SOFTWARE IS PROVIDED 'AS IS' (...)" also known as:
 
-#### README is WIP...
+**MIT License**: https://choosealicense.com/licenses/mit/
+
+---
+
+Have fun!
