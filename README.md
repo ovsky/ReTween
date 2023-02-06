@@ -78,8 +78,7 @@ The most important difference is that Eases has many predefined, basic values, a
 
 ```csharp
 
-public enum EaseType
-{
+  
     Linear = 0,
     QuadIn = 1,
     QuadOut = 2,
@@ -108,9 +107,7 @@ public enum EaseType
     ExponentialIn = 25,
     ExponentialOut = 26,
     ExponentialInOut = 27,
-    // Custom = 28,
-}
-
+  
 ```
 
 
