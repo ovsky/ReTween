@@ -1,20 +1,27 @@
+using System;
 using UnityEngine;
 
 namespace ReTween.Utilities
 {
     public class AutoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public static T Instance;
+        private static T instance;
+        public static T Instance => instance ??= AutoInitialize();
 
-        [RuntimeInitializeOnLoadMethod]
-        private static void InitializeOnLoad()
+        private const string PARENT_NAME = "AutoBehaviours";
+
+        public static T AutoInitialize()
         {
-            if (Instance == null)
+            if (instance == null)
             {
-                GameObject autoObject = new GameObject("AutoBehaviours").gameObject;
-                Instance = autoObject.AddComponent<T>();
+                GameObject autoObject = GameObject.Find(PARENT_NAME) ?? new GameObject(PARENT_NAME).gameObject;
+                instance = autoObject.AddComponent<T>();
+                (instance as AutoBehaviour<T>)?.OnInitialized();
+
                 DontDestroyOnLoad(autoObject);
             }
+
+            return instance;
         }
 
         public virtual void OnInitialized() { }

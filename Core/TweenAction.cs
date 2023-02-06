@@ -9,17 +9,31 @@ namespace ReTween
         public float duration;
         public float start;
 
-        public AnimationCurve ease;
+        public Ease ease;
 
         public Action<float> action;
 
-        public TweenAction(Action<float> action, float duration = 1f, float delay = 0f, AnimationCurve ease = null)
+        public TweenAction(Action<float> action, float duration = 1f, float delay = 0f, Ease ease = null)
         {
             start = Time.time;
             this.action = action;
             this.duration = duration;
             this.delay = delay;
-            this.ease = ease;
+
+            if (ease?.easeType == EaseType.Custom)
+            {
+                if (ease.customCurve == null)
+                {
+                    Debug.LogError($"Ease named [{ease.easeName}] is not valid! Its curve is null.");
+                    this.ease = Ease.Default;
+                }
+                else
+                {
+                    EaseManager.SetCustom(ease.easeName, ease.customCurve, unique: true);
+                }
+            }
+
+            this.ease = ease ?? Ease.Default;
         }
     }
 }

@@ -9,14 +9,17 @@ namespace ReTween
     {
         #region  Properties
 
-        private static readonly List<TweenAction> tweenActions = new List<TweenAction>();
-        private static readonly List<TweenAction> removeActions = new List<TweenAction>();
+        private readonly List<TweenAction> tweenActions = new List<TweenAction>();
+        private readonly List<TweenAction> removeActions = new List<TweenAction>();
 
         #endregion  Properties
 
         #region  Tween Loop
 
-        private static IEnumerator Loop()
+        [RuntimeInitializeOnLoadMethod]
+        public static void OnLoad() => AutoInitialize();
+
+        private IEnumerator Loop()
         {
             while (true)
             {
@@ -34,7 +37,7 @@ namespace ReTween
                             removeActions.Add(action);
                         }
 
-                        action.action(Easing.Evaluate(time));
+                        action.action(EaseManager.Evaluate(time, action.ease));
                     }
                 }
 
@@ -45,11 +48,21 @@ namespace ReTween
             }
         }
 
-        public void Add(TweenAction action) => tweenActions.Add(action);
+        public override void OnInitialized() => Instance.StartCoroutine(Loop());
 
-        public void Remove(TweenAction action) => tweenActions.Remove(action);
+        public static TweenAction Add(TweenAction action)
+        {
+            Instance.tweenActions.Add(action);
+            return action;
+        }
 
-        public void Clear(TweenAction action) => tweenActions.Clear();
+        public static TweenAction Remove(TweenAction action)
+        {
+            Instance.tweenActions.Remove(action);
+            return action;
+        }
+
+        public static void Clear() => Instance.tweenActions.Clear();
 
         #endregion Tween Loop
     }

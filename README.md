@@ -1,7 +1,7 @@
-
-
-
 # ReTween
+
+![ReTween Logo](https://i.postimg.cc/150Fwqkd/ellipse1ss275.png)
+
 
 ReTween is blazing fast, modular and really simple Tweening System for Unity.
 
@@ -21,6 +21,12 @@ Tween.Position(someTransform, Vector3.right);
 ```
 
 Pretty easy, yeah?
+
+### ReExtensions:
+ReTween supports also extensions like: 
+`ReTween.Next()` in which you define the next action, after reffered. 
+`ReTween.SetEase()` where you can set easing mode, after creating a `Tween`.
+And more...
 
 ### ReModules:
 
@@ -79,10 +85,14 @@ The most important difference is that Eases has many predefined, basic values, a
 
 #### Real Usage:
 <details><summary>Preview</summary>
+
 2D Animations:
-![](https://i.ibb.co/7VF3Kqt/Follow-Through.gif)
-![](https://i.ibb.co/N1fb49d/Secondary-Action.gif)
-@skillshare
+
+![](https://i.ibb.co/z64s7DK/Follow-Through-anim.gif)
+
+![](https://i.ibb.co/YtfQkfb/Secondary-Action-anim.gif)
+@eringreenawald
+
 </details>
 
 #### README is WIP...

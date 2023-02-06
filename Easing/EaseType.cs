@@ -1,0 +1,35 @@
+namespace ReTween
+{
+    public enum EaseType
+    {
+        Linear = 0,
+        QuadIn = 1,
+        QuadOut = 2,
+        QuadInOut = 3,
+        CubicIn = 4,
+        CubicOut = 5,
+        CubicInOut = 6,
+        QuartIn = 7,
+        QuartOut = 8,
+        QuartInOut = 9,
+        QuintIn = 10,
+        QuintOut = 11,
+        QuintInOut = 12,
+        BounceIn = 13,
+        BounceOut = 14,
+        BounceInOut = 15,
+        ElasticIn = 16,
+        ElasticOut = 17,
+        ElasticInOut = 18,
+        CircularIn = 19,
+        CircularOut = 20,
+        CircularInOut = 21,
+        SinusIn = 22,
+        SinusOut = 23,
+        SinusInOut = 24,
+        ExponentialIn = 25,
+        ExponentialOut = 26,
+        ExponentialInOut = 27,
+        Custom = 28,
+    }
+}
