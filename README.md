@@ -74,7 +74,7 @@ The most important difference is that Eases has many predefined, basic values, a
 
 ### ⏩ Supported high-performace Ease Calculations:
 
-**ReTween** provides implementation of 27 high-performance math patterns for easing types:
+**ReTween** provides implementation of 28 high-performance math patterns for easing types:
 
 ```csharp
 
@@ -106,7 +106,7 @@ The most important difference is that Eases has many predefined, basic values, a
     SinusInOut = 24,
     ExponentialIn = 25,
     ExponentialOut = 26,
-    ExponentialInOut = 27,
+    ExponentialInOut = 27
   
 ```
 
