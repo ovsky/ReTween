@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ReTween.Editor
 {
-    [CustomPropertyDrawer(typeof(EaseType))]
+    [CustomPropertyDrawer(typeof(Easing))]
     public class EaseTypeDrawer : PropertyDrawer
     {
         [SerializeField] AnimationCurve curve;
@@ -49,7 +49,7 @@ namespace ReTween.Editor
 
         private void DrawPreview(SerializedProperty property)
         {
-            if (property.isExpanded && (property.enumValueIndex != (int)EaseType.Custom))
+            if (property.isExpanded && (property.enumValueIndex != (int)Easing.Custom))
             {
                 if (lastType != property.enumValueIndex)
                 {
@@ -57,7 +57,7 @@ namespace ReTween.Editor
 
                     for (int i = 0; i < ACCURACY; i++)
                     {
-                        float x = EaseCalculator.Calculate((EaseType)property.enumValueIndex, i / ACCURACY);
+                        float x = EaseCalculator.Calculate((Easing)property.enumValueIndex, i / ACCURACY);
                         Keyframe key = new Keyframe(i / ACCURACY, x);
 
                         if (i > 0)

@@ -48,7 +48,7 @@ namespace ReTween.Editor
             EaseTypeDrawer.SetName(property.displayName);
             EditorGUILayout.PropertyField(easeType);
 
-            if (easeType.isExpanded && easeType.enumValueIndex == (int)EaseType.Custom)
+            if (easeType.isExpanded && easeType.enumValueIndex == (int)Easing.Custom)
             {
                 EditorGUILayout.PropertyField(easeName, new GUIContent("Custom Easing Name:"));
                 EditorGUILayout.HelpBox("Custom curves are way slower than selectable easings. Select one of the predefined calculations if you can.", MessageType.Info);
