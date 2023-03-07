@@ -1,10 +1,10 @@
-name: Deploy UPM
+name: Deploy UPM Basic
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
   deploy:
@@ -14,29 +14,3 @@ jobs:
       - name: Push UPM Subtree
         run: |
           git subtree push --prefix Assets/ReTween origin upm
-  test-autostart:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: XPush UPM Subtree
-        run: |
-          git subtree push --prefix Assets/ReTween origin upm
-
-#   build:
-
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v3
-
-#     - name: configure
-#       run: ./configure
-
-#     - name: Install dependencies
-#       run: make
-
-#     - name: Run check
-#       run: make check
-
-#     - name: Run distcheck
-#       run: make distcheck
