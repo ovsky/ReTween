@@ -1,2 +1,2 @@
 deploy:
-	git subtree push --prefix Assets/Plugins/UnityPackageExample origin upm
+	git subtree push --prefix Assets/ReTween origin upm
