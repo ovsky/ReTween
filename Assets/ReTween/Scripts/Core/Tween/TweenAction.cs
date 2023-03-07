@@ -20,7 +20,7 @@ namespace ReTween
             this.duration = duration;
             this.delay = delay;
 
-            if (ease?.easeType == Easing.Custom)
+            if (ease?.easeType == EaseType.Custom)
             {
                 if (ease.customCurve == null)
                 {

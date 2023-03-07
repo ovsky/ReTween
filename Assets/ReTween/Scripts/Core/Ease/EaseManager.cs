@@ -15,7 +15,7 @@ namespace ReTween
 
         #region Eases Management
 
-        public static Ease Default = new Ease(Easing.QuadIn, "Default");
+        public static Ease Default = new Ease(EaseType.QuadIn, "Default");
 
         public static void SetDefault(Ease target) => Default = target;
 
@@ -25,7 +25,7 @@ namespace ReTween
         public static void Add(string name, AnimationCurve ease)
             => Instance.customEases.Add(name, new Ease(ease, name));
 
-        public static void Add(string name, Easing ease)
+        public static void Add(string name, EaseType ease)
             => Instance.customEases.Add(name, new Ease(ease, name));
 
         public static void Clear() => Instance.customEases.Clear();

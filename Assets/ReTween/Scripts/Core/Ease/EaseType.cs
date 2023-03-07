@@ -1,6 +1,6 @@
 namespace ReTween
 {
-    public enum Easing
+    public enum EaseType
     {
         Linear = 0,
         QuadIn = 1,
