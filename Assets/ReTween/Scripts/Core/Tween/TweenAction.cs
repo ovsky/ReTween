@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ReTween
 {
-    public struct TweenAction
+    public class TweenAction : CustomYieldInstruction
     {
         public float delay;
         public float duration;
@@ -11,12 +11,15 @@ namespace ReTween
 
         public Ease ease;
 
-        public Action<float> action;
+        public Action<float> function;
+        public bool finished => Time.time - start >= duration + delay;
+
+        public override bool keepWaiting => !finished;
 
         public TweenAction(Action<float> action, float duration = 1f, float delay = 0f, Ease ease = null)
         {
             start = Time.time;
-            this.action = action;
+            this.function = action;
             this.duration = duration;
             this.delay = delay;
 

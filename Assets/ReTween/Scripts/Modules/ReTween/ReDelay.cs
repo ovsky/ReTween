@@ -5,10 +5,11 @@ namespace ReTween
 {
     public partial class Tween
     {
-        #region Transform
+        #region Delay
+        [Obsolete("Use Tween.Wait instead!")]
         public static void Delay(Action<float> action, float delay = 0f, Ease ease = null)
             => Tween.Add(new TweenAction((float time) => action.Invoke(time), 0f, delay, ease));
 
-        #endregion Transform
+        #endregion Delay
     }
 }

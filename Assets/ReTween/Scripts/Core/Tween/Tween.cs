@@ -10,7 +10,9 @@ namespace ReTween
         #region  Properties
 
         private readonly List<TweenAction> tweenActions = new List<TweenAction>();
-        private readonly List<TweenAction> removeActions = new List<TweenAction>();
+        // private readonly List<TweenAction> removeActions = new List<TweenAction>();
+        // private readonly List<int> removeIndex = new List<int>();
+
 
         #endregion  Properties
 
@@ -19,14 +21,22 @@ namespace ReTween
         [RuntimeInitializeOnLoadMethod]
         public static void OnLoad() => AutoInitialize();
 
+        public override void OnInitialized() => Instance.StartCoroutine(Loop());
+
         private IEnumerator Loop()
         {
             while (true)
             {
                 yield return new WaitForEndOfFrame();
 
-                foreach (TweenAction action in tweenActions)
+                Debug.Log("Tween Loop");
+                Debug.Log(tweenActions.Count);
+
+                TweenAction action;
+
+                for (int i = 0; i < tweenActions.Count; i++)
                 {
+                    action = tweenActions[i];
                     float time = (Time.time - action.start - action.delay) / action.duration;
 
                     if (time > 0f)
@@ -34,21 +44,14 @@ namespace ReTween
                         if (time >= 1f)
                         {
                             time = 1f;
-                            removeActions.Add(action);
+                            tweenActions.RemoveAt(i);
                         }
 
-                        action.action(EaseCalculator.Evaluate(time, action.ease));
+                        action.function(EaseCalculator.Evaluate(time, action.ease));
                     }
-                }
-
-                foreach (TweenAction remove in removeActions)
-                {
-                    tweenActions.Remove(remove);
                 }
             }
         }
-
-        public override void OnInitialized() => Instance.StartCoroutine(Loop());
 
         public static TweenAction Add(TweenAction action)
         {
