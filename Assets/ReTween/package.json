@@ -2,8 +2,7 @@
     "name": "com.ovsky.retween",
     "displayName": "ReTween",
     "version": "0.0.1",
-    "unity": "2022.2.8",
-    "unityRelease": "f1",
+    "unity": "2022.2",
     "description": "The most powerful and easy to use tweening library for Unity.",
     "documentationUrl": "https://github.com/ovsky/ReTween",
     "author": 
