@@ -8,8 +8,13 @@ on:
 
 jobs:
   deploy:
-	  git subtree push --prefix Assets/ReTween/ origin upm
-
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Push UPM Subtree
+        run: |
+          git subtree push --prefix Assets/Plugins/UnityPackageExample origin upm
+  
   build:
 
     runs-on: ubuntu-latest
