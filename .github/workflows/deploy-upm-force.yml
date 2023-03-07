@@ -16,5 +16,5 @@ jobs:
           git fetch -f
           git checkout main -f
           git pull origin main -f
-          git branch --delete origin upm
+          git push origin --delete upm
           git subtree push --prefix Assets/ReTween origin upm
