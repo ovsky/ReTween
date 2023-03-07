@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ReTween
 {
     [Serializable]
-    public partial class EaseManager : AutoBehaviour<EaseManager>
+    public partial class EaseCalculator : AutoBehaviour<EaseCalculator>
     {
         #region Custom Eases
         public Dictionary<string, Ease> customEases = new Dictionary<string, Ease>();
@@ -32,7 +32,7 @@ namespace ReTween
 
         public static void Remove(string name)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (Instance.customEases.ContainsKey(name))
             {
                 Debug.Log($"Ease named [{name}] removed successfully.");
@@ -41,14 +41,14 @@ namespace ReTween
             {
                 Debug.LogError($"Ease named [{name}] not found! Can't remove it.");
             }
-            #endif
+#endif
 
             Instance.customEases.Remove(name);
         }
 
         public static Ease SetCustom(string name, AnimationCurve curve, bool unique = false)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             bool existing = Instance.customEases.TryGetValue(name, out Ease ease);
 
             if (existing && !unique)
@@ -56,7 +56,7 @@ namespace ReTween
                 Debug.LogError($"Ease named [{name}] already exist! Use another name.");
             }
             else
-            #endif
+#endif
             {
                 if (unique)
                 {
@@ -74,14 +74,14 @@ namespace ReTween
         {
             bool existing = Instance.customEases.TryGetValue(name, out Ease ease);
 
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (!existing)
             {
                 Debug.LogError($"Ease {name} not found! Using default ease.");
                 return Ease.Default;
             }
             else
-            #endif
+#endif
             {
                 return ease;
             }

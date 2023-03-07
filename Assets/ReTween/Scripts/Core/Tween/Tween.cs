@@ -37,7 +37,7 @@ namespace ReTween
                             removeActions.Add(action);
                         }
 
-                        action.action(EaseManager.Evaluate(time, action.ease));
+                        action.action(EaseCalculator.Evaluate(time, action.ease));
                     }
                 }
 

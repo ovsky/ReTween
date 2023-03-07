@@ -4,7 +4,7 @@ namespace ReTween
 {
     #region Ease Evaluation
 
-    public partial class EaseManager
+    public partial class EaseCalculator
     {
         public static float Evaluate(float time, AnimationCurve ease = default)
             => ease.Evaluate(time);

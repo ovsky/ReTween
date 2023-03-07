@@ -29,7 +29,7 @@ namespace ReTween
                 }
                 else
                 {
-                    EaseManager.SetCustom(ease.easeName, ease.customCurve, unique: true);
+                    EaseCalculator.SetCustom(ease.easeName, ease.customCurve, unique: true);
                 }
             }
 

@@ -57,7 +57,7 @@ namespace ReTween.Editor
 
                     for (int i = 0; i < ACCURACY; i++)
                     {
-                        float x = EaseManager.Calculate((EaseType)property.enumValueIndex, i / ACCURACY);
+                        float x = EaseCalculator.Calculate((EaseType)property.enumValueIndex, i / ACCURACY);
                         Keyframe key = new Keyframe(i / ACCURACY, x);
 
                         if (i > 0)
