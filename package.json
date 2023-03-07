@@ -1,0 +1,27 @@
+{
+    "name": "com.ovsky.ReTween",
+    "version": "0.1",
+    "displayName": "ReTween",
+    "description": "The most powerful and easy to use tweening library for Unity.",
+    "unity": "2022.2.8",
+    "unityRelease": "f1",
+    "documentationUrl": "https://github.com/ovsky/ReTween",
+    "changelogUrl": "https://github.com/ovsky/ReTween/releases/",
+    "licensesUrl": "https://github.com/ovsky/ReTween",
+    "dependencies": {
+   },
+   "keywords": [
+      "retween",
+      "tween",
+      "mathemathics",
+      "curves",
+      "tweening",
+      "animation"
+    ],
+    "author": {
+      "name": "Przemysław Orłowski / ovsky",
+      "email": "hello@orlowski.work",
+      "url": "https://www.orlowski.work/"
+    }
+  }
+  
