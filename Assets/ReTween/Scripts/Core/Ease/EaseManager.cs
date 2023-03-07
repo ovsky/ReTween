@@ -15,7 +15,7 @@ namespace ReTween
 
         #region Eases Management
 
-        public static Ease Default = new Ease(Easing.QuadIn, "QuadIn");
+        public static Ease Default = new Ease(Easing.QuadIn, "Default");
 
         public static void SetDefault(Ease target) => Default = target;
 
