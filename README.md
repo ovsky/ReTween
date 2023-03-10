@@ -1,7 +1,9 @@
 # 📦 ReTween - Fastest Unity and .NET Tweening Solution 
 
 ![ReTween Logo](https://i.postimg.cc/150Fwqkd/ellipse1ss275.png)
-
+```
+*ReTween* is currently in hard rework state. We suggest to wait for new version with all features consolidations.
+```
 ReTween is blazing fast, modular and really simple Tweening System for Unity.
 
 This plugin is not ispired by market-leading DoTween, beacuse we think that the advanced and fast tweening can be done way better. 
