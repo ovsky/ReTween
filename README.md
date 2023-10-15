@@ -1,43 +1,101 @@
+
 # 📦 ReTween - Fastest Unity and .NET Tweening Solution 
 
-![ReTween Logo](https://i.postimg.cc/150Fwqkd/ellipse1ss275.png)
-```
-*ReTween* is currently in hard rework state. We suggest to wait for new version with all features consolidations.
-```
-ReTween is blazing fast, modular and really simple Tweening System for Unity.
+## 📒 ReTween
+ReTween is blazing fast, zero-garbage, modular and really simple Tweening System for Unity.
 
-This plugin is not ispired by market-leading DoTween, beacuse we think that the advanced and fast tweening can be done way better. 
-
-Beacuse of that, the structure of writing Tweens is quite different than in DoTween - way more clear and elegant. But we do not rule out that in the future we will run an overlay that allows you to use ReTween, like DoTween - for people which are used to using DoTween.
-
-[Benchmarks comparing ReTween and DoTween will be available shortly]
 
 ## 📖 QuickStart
-
 ### ReTween:
 
-So, let's tween a color and piosition of objects in two different ways:
+So, let's use the Tween!
+
+#### Usage:
 
 ```csharp
-Tween.Color(someImage, Color.blue, 1f, 0.5f, Ease.InOut);
-Tween.Position(someTransform, Vector3.right);
+// Position and Color
+Tween.Position(transform, Vector3.right);
+Tween.Color(someImage, Color.blue).SetDelay(0.5f);
 ```
 
-Pretty easy, yeah?
+So, it's pretty easy!
+
+#### Extended Usage:
+
+```csharp
+// Position
+Tween.Position(transform, new Vecor3(0, 5, 0), delay, duration);
+Tween.Position(transform, position);
+Tween.Position(transform, () => FindTarget());
+
+// Color
+Tween.Color(image, Color.blue, delay, 1.0f, Ease.InOut);
+Tween.Color(image, Color.blue).SetDelay(0.5f).SetEase(EaseType.Linear);
+```
+
+#### Next:
+You can create custom chain of Tweens:
+
+```csharp
+// Next Chain:
+Tween.Scale(transform, Vector3.one * 3f, 1f, 0f, anotherEase)
+    .Next(Tween.Scale(transform, Vector3.one * 4f))
+    .Next(Tween.Wait(3f))
+    .Next(Tween.Scale(transform, Vector3.one * 2f, 1f, 0f, anotherEase))
+        .SetDelay(5f));
+```
+
+#### Async:
+The Tween is fully asynchronous, so you can use them for yield and as enumerables:
+
+```csharp
+yield return Tween.Scale(transform, Vector3.zero, 1f, 0f, scaleEase);
+yield return Tween.Position(transform, Vector3.right * 3f, 1f, 0f, anotherEase);
+yield return Tween.Wait(2f);
+yield return Tween.Scale(transform, Vector3.one * 3f, 1f, 0f, anotherEase);
+```
+
+#### Break:
+If you want, you can apply some tween breaking rules, like BreakPoint function or BreakObject.
+
+**Break Point** - set if you want to finish tween on reaching some function:
+
+```csharp
+// Custom Break Point
+Tween.Color(someImage, Color.blue).SetBreakPoint(() => colorLoopActive && colorTarget == 1);
+Tween.Position(transform, targetPosition).SetBreakPoint(() => IsTweenActive());
+```
+
+**Break Object** - set if you want to finish tween on destroy of target object:
+
+```csharp
+// Custom Break Object
+Tween.Color(someImage, Color.blue).SetBreakObject(parentObject);
+```
+
+---
 
 ### 🗂️ ReExtensions:
-ReTween supports also extensions like: 
-`ReTween.Next()` in which you define the next action, after reffered. 
-`ReTween.SetEase()` where you can set easing mode, after creating a `Tween`.
-And more...
+ReTween supports custom extensions, like predefined: 
+
+`ReTween.Next()` - where you can define next custom Action and TweenAction.  
+
+`ReTween.SetEase()` - where you can define easing mode.
+
+`ReTween.SetDelay()` - where you can define delay.
+
+`SetAction`, `SetDuration`, `SetStartTime`, `SetBreakPoint`, `SetBreakObject` - and more.
+
+---
 
 ### 📚 ReModules:
 
-You can create new ReModule by writing new script in ReTween/Modules that will use the Tween.Add() method, and create new `Action<float>`, where the `float` is easing time, from 0 to 1.
+You can create new ReModule by writing new script in ReTween/Modules that will assign new method by `Tween.Add()` and describe new `Action<float>`, where the `float` is easing time, from 0 to 1.
 
-If you want to use it like the rest of the ReTween *(by Tween.YourModule())*, you can make your new class a *partial* of the Tween.
+To follow the ReTween guidelines, you can write your new class as *partial* of the RwTween *(by Tween.YourModule())*.
 
-For example, we will add a Color Lerp module for UI.Image:
+Example: 
+If we want to add a Color Lerp module for UI.Image, we need to write simple instruction:
 
 ```csharp
 public static void Color(Image image, Color target)
@@ -46,7 +104,7 @@ public static void Color(Image image, Color target)
 }
 ```
 
-Obviously, you can create more complex Tweens. In standard TweenAction you can use more pre-implemented values, like: `duration`, `delay`, `easing`, and more.
+Obviously, you can create more complex Tweens. Basic `TweenAction` is built with pre-implemented values, like: `duration`, `delay`, `easing`, like:
 
 ```csharp
 public static void Color(Image image, Color target, float duration = 1f, float delay = 0f, Ease ease = null)
@@ -55,6 +113,12 @@ public static void Color(Image image, Color target, float duration = 1f, float d
 }
 ```
 
+Now to tween the UI Image color, you can write in your code:
+```csharp
+Tween.Color(someImage, Color.blue, 0.5f, 2f);
+```
+
+---
 
 ### 📘 Ease / Easing:
 
@@ -62,25 +126,23 @@ public static void Color(Image image, Color target, float duration = 1f, float d
 
 Easings are some sort of simple curves, that helps to visualise and evaluate smooth and juicy, animations. You can use some of the predefined curves or create own.
 
-In simple words - it evaluates the 0.0-1.0 value that you privided, creating the new one, based on your Ease, abling you to easile make really nice visuals. 
+Easing Examples:
 
-Easing Visualisation:
-![](https://i.ibb.co/tX2dMRV/1-0-Z40-Vvur-Cgo-GJb-Kjj-In-Dl-Ax.gif)
-##### @leonardodev
+![Easing Preview Animation](https://i.ibb.co/djbj0X1/tween-animation.gif)
 
-#### Technical Background
+--- 
 
-*Ease* is fully compatible and swapable with AnimationCurves - with which you may already be familiar - with no additional instructions. 
+#### Technical:
+
+*Ease* is fully compatible and swapable with Unity AnimationCurves - which with you may be already familiar.
 In every field you have used AnimationCurve, you can use Ease as the replacement, without changing the implementation. 
-The most important difference is that Eases has many predefined, basic values, a bank of custom definition, and that they are completely garbage-free, and made with optimisation in-mind. 
+The most important difference is that Eases has many predefined, basic values - a bank of custom definition - they are completely garbage-free and made with optimisation in-mind. 
 
 ### ⏩ Supported high-performace Ease Calculations:
 
 **ReTween** provides implementation of 28 high-performance math patterns for easing types:
 
-```csharp
-
-  
+```csharp  
     Linear = 0,
     QuadIn = 1,
     QuadOut = 2,
@@ -100,16 +162,20 @@ The most important difference is that Eases has many predefined, basic values, a
     ElasticIn = 16,
     ElasticOut = 17,
     ElasticInOut = 18,
-    CircularIn = 19,
-    CircularOut = 20,
-    CircularInOut = 21,
-    SinusIn = 22,
-    SinusOut = 23,
-    SinusInOut = 24,
-    ExponentialIn = 25,
-    ExponentialOut = 26,
-    ExponentialInOut = 27
-  
+    SlowElasticIn  =  19,
+    CircularIn  =  20,
+    CircularOut  =  21,
+    CircularInOut  =  22,
+    SinusIn  =  23,
+    SinusOut  =  24,
+    SinusInOut  =  25,
+    ExponentialIn  =  26,
+    ExponentialOut  =  27,
+    ExponentialInOut  =  28,|
+    BackwardIn  =  29,
+    BackwardOut  =  30,
+    BackwardInOut  =  31,
+    BackwardInOutHalf  =  32,
 ```
 
 
@@ -119,23 +185,32 @@ The most important difference is that Eases has many predefined, basic values, a
 
 | TweenAction | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `start` | `float` | TweenAction start time. *[auto assigned][read-only]* |
+| `startTime` | `float` | TweenAction start time. *[auto assigned][read-only]* |
 | `action` | `Action<float>` | Main action, that receives the float value as lerp time. |
 | `delay` | `float` | Time to start invoking TweenAction |
 | `duration` | `float` | Duration of tweening process. |
-| `ease` | `Ease` | Selected Ease, to make tweening more pretty.  |
+| `breakPoint` | `Func<bool>` | Function that should be meet to break tween. |
+| `breakObject` | `GameObject` | Function that should be destroyed to break tween. |
+
+#### *Ease* base construction operators:
+
+```csharp
+EaseType, AnimationCurve, Ease
+```
+
+#### *Ease* public static methods:
+```csharp
+Ease SetEaseName<string>(value)
+Ease GetCustom<string>(value)
+Ease SetCustom<string>(value)
+```
 
 
 ## 📝 License:
 
+License: 
 Copyright (c) 2023 - Przemysław Orłowski
 
-License: 
+MIT License
 
-"THE SOFTWARE IS PROVIDED 'AS IS' (...)" also known as:
-
-**MIT License**: https://choosealicense.com/licenses/mit/
-
----
-
-Have fun!
+https://raw.githubusercontent.com/ovsky/ReTween/main/Assets/Lab7/LICENSE.txt
