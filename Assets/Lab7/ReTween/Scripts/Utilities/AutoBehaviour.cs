@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ReTween.Utilities
 {
+    [DefaultExecutionOrder(100)]
     public class AutoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T instance;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ReTween.Utilities;
@@ -5,14 +6,12 @@ using UnityEngine;
 
 namespace ReTween
 {
+    [DefaultExecutionOrder(100)]
     public partial class Tween : AutoBehaviour<Tween>
     {
         #region  Properties
 
         private readonly List<TweenAction> tweenActions = new List<TweenAction>();
-        // private readonly List<TweenAction> removeActions = new List<TweenAction>();
-        // private readonly List<int> removeIndex = new List<int>();
-
 
         #endregion  Properties
 
@@ -21,26 +20,36 @@ namespace ReTween
         [RuntimeInitializeOnLoadMethod]
         public static void OnLoad() => AutoInitialize();
 
-        public override void OnInitialized() => Instance.StartCoroutine(Loop());
+        public override void OnInitialized()
+        {
+            // #if UNITY_EDITOR
+            //             UnityEditor.MonoScript monoScript = UnityEditor.MonoScript.FromMonoBehaviour(this);
+            //             UnityEditor.MonoImporter.SetExecutionOrder(monoScript, 100);
+            // #endif
+
+            Instance.StartCoroutine(Loop());
+        }
 
         private IEnumerator Loop()
         {
             while (true)
             {
-                yield return new WaitForEndOfFrame();
-
-                Debug.Log("Tween Loop");
-                Debug.Log(tweenActions.Count);
-
                 TweenAction action;
 
                 for (int i = 0; i < tweenActions.Count; i++)
                 {
                     action = tweenActions[i];
-                    float time = (Time.time - action.start - action.delay) / action.duration;
 
-                    if (time > 0f)
+                    float time = (Time.time - action.startTime - action.delay) / action.duration;
+
+                    if (time >= 0f)
                     {
+                        if ((action.breakDestroy && action.breakObject == null) || action.breakPoint != null && action.breakPoint())
+                        {
+                            tweenActions.RemoveAt(i);
+                            continue;
+                        }
+
                         if (time >= 1f)
                         {
                             time = 1f;
@@ -50,6 +59,8 @@ namespace ReTween
                         action.function(EaseCalculator.Evaluate(time, action.ease));
                     }
                 }
+
+                yield return null;
             }
         }
 
@@ -57,6 +68,12 @@ namespace ReTween
         {
             Instance.tweenActions.Add(action);
             return action;
+        }
+
+        public static TweenAction SetExtension(TweenAction tween, Action action)
+        {
+            action.Invoke();
+            return tween;
         }
 
         public static TweenAction Remove(TweenAction action)

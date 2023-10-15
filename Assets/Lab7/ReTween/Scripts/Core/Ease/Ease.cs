@@ -11,7 +11,7 @@ namespace ReTween
 
         public EaseType easeType = EaseType.QuadOut;
 
-        public static Ease Default => EaseCalculator.Default;
+        public static Ease Default => EaseType.QuadInOut;
 
         public Ease(EaseType easeType, string easeName = default) => (this.easeType, this.easeName) = (easeType, easeName);
         public Ease(AnimationCurve customCurve, string easeName = default) => (this.customCurve, this.easeName) = (customCurve, easeName);

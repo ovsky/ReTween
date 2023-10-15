@@ -7,18 +7,22 @@ namespace ReTween
     {
         public float delay;
         public float duration;
-        public float start;
+        public float startTime;
 
         public Ease ease;
 
         public Action<float> function;
-        public bool finished => Time.time - start >= duration + delay;
 
+        public bool finished => Time.time - startTime >= duration + delay;
         public override bool keepWaiting => !finished;
+
+        public Func<bool> breakPoint { get; set; }
+        public GameObject breakObject { get; set; } = null;
+        public bool breakDestroy { get; set; } = false;
 
         public TweenAction(Action<float> action, float duration = 1f, float delay = 0f, Ease ease = null)
         {
-            start = Time.time;
+            startTime = Time.time;
             this.function = action;
             this.duration = duration;
             this.delay = delay;
@@ -38,5 +42,6 @@ namespace ReTween
 
             this.ease = ease ?? Ease.Default;
         }
+
     }
 }

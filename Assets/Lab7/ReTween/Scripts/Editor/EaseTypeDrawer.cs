@@ -48,6 +48,9 @@ namespace ReTween.Editor
             if (GUILayout.Button(RIGHT_ARROW, GUILayout.Width(BUTTON_WIDTH)) && property.enumValueIndex < property.enumDisplayNames.Length - 1)
                 property.enumValueIndex++;
 
+            if (property.enumValueIndex == property.enumDisplayNames.Length - 1)
+                property.enumValueFlag = (int)EaseType.Custom;
+
             EditorGUILayout.EndHorizontal();
 
             DrawPreview(property);
@@ -62,9 +65,9 @@ namespace ReTween.Editor
 
         private void DrawPreview(SerializedProperty property)
         {
-            if (property.isExpanded && (property.enumValueIndex != (int)EaseType.Custom))
+            if (property.isExpanded && (property.enumValueFlag != (int)EaseType.Custom))
             {
-                if (lastType != property.enumValueIndex)
+                if (lastType != property.enumValueFlag)
                 {
                     curve = new AnimationCurve();
 
@@ -76,7 +79,7 @@ namespace ReTween.Editor
                         curve.AddKey(key);
                         curve.SmoothTangents(i, 1f);
                     }
-                    lastType = property.enumValueIndex;
+                    lastType = property.enumValueFlag;
                 }
                 EditorGUILayout.CurveField(curve, GUILayout.Height(PREVIEW_HEIGHT));
                 EditorGUILayout.Separator();
