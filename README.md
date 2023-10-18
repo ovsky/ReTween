@@ -1,8 +1,8 @@
 
-# 📦 ReTween - Fastest Unity and .NET Tweening Solution 
+# 📦 ReTween - Fastest Unity and C# Tweening Solution 
 
 ## 📒 ReTween
-ReTween is blazing fast, zero-garbage, modular and really simple Tweening System for Unity.
+ReTween is blazing fast, zero-garbage, modular, really simple and effective Tweening System for Unity.
 
 
 ## 📖 QuickStart
@@ -11,9 +11,9 @@ ReTween is blazing fast, zero-garbage, modular and really simple Tweening System
 So, let's use the Tween!
 
 #### Usage:
+Tween position and color:
 
 ```csharp
-// Position and Color
 Tween.Position(transform, Vector3.right);
 Tween.Color(someImage, Color.blue).SetDelay(0.5f);
 ```
@@ -22,22 +22,20 @@ So, it's pretty easy!
 
 #### Extended Usage:
 
+Tween position and color with functions, methods and custom delays, durations and easings:
 ```csharp
-// Position
 Tween.Position(transform, new Vecor3(0, 5, 0), delay, duration);
 Tween.Position(transform, position);
 Tween.Position(transform, () => FindTarget());
 
-// Color
 Tween.Color(image, Color.blue, delay, 1.0f, Ease.InOut);
 Tween.Color(image, Color.blue).SetDelay(0.5f).SetEase(EaseType.Linear);
 ```
 
 #### Next:
-You can create custom chain of Tweens:
+Tween scale using custom chain of things called in sequence, one after one, with waiting:
 
 ```csharp
-// Next Chain:
 Tween.Scale(transform, Vector3.one * 3f, 1f, 0f, anotherEase)
     .Next(Tween.Scale(transform, Vector3.one * 4f))
     .Next(Tween.Wait(3f))
@@ -46,7 +44,7 @@ Tween.Scale(transform, Vector3.one * 3f, 1f, 0f, anotherEase)
 ```
 
 #### Async:
-The Tween is fully asynchronous, so you can use them for yield and as enumerables:
+Tweening fully asynchronous, where you can yield custom async function by them, and use it as enumerables:
 
 ```csharp
 yield return Tween.Scale(transform, Vector3.zero, 1f, 0f, scaleEase);
@@ -56,29 +54,34 @@ yield return Tween.Scale(transform, Vector3.one * 3f, 1f, 0f, anotherEase);
 ```
 
 #### Break:
-If you want, you can apply some tween breaking rules, like BreakPoint function or BreakObject.
-
-**Break Point** - set if you want to finish tween on reaching some function:
+Tweening with custom cause of break, based on boolean expression and object existence check:
+ 
+**Break Point** @ set if you want to finish tween on reaching some function:
 
 ```csharp
-// Custom Break Point
-Tween.Color(someImage, Color.blue).SetBreakPoint(() => colorLoopActive && colorTarget == 1);
-Tween.Position(transform, targetPosition).SetBreakPoint(() => IsTweenActive());
+Tween.Color(someImage, Color.blue)
+    .SetBreakPoint(() => colorLoopActive && colorTarget == 1);
+
+Tween.Position(transform, targetPosition)
+    .SetBreakPoint(() => IsTweenActive());
 ```
 
-**Break Object** - set if you want to finish tween on destroy of target object:
+**Break Object** @ set if you want to finish tween on destroy of target object:
 
 ```csharp
-// Custom Break Object
-Tween.Color(someImage, Color.blue).SetBreakObject(parentObject);
+Tween.Color(someImage, Color.blue)
+    .SetBreakObject(parentObject);
 ```
 
 ---
 
 ### 🗂️ ReExtensions:
-ReTween supports custom extensions, like predefined: 
+ReTween supports custom  [extensions, like predefined: 
 
-`ReTween.Next()` - where you can define next custom Action and TweenAction.  
+```csharp 
+ReTween.Next()
+```
+Where you can define next custom Action and TweenAction.  
 
 `ReTween.SetEase()` - where you can define easing mode.
 
@@ -128,7 +131,7 @@ Easings are some sort of simple curves, that helps to visualise and evaluate smo
 
 Easing Examples:
 
-![Easing Preview Animation](https://i.ibb.co/djbj0X1/tween-animation.gif)
+![Easing Preview Animation](https://i.ibb.co/4YmJ578/tween-animation-x2-waifu2x-900x465-opt-1-1-1.gif)
 
 --- 
 
@@ -140,7 +143,7 @@ The most important difference is that Eases has many predefined, basic values - 
 
 ### ⏩ Supported high-performace Ease Calculations:
 
-**ReTween** provides implementation of 28 high-performance math patterns for easing types:
+**ReTween** provides implementation of 30+ high-performance math patterns for easing types:
 
 ```csharp  
     Linear = 0,
@@ -177,7 +180,31 @@ The most important difference is that Eases has many predefined, basic values - 
     BackwardInOut  =  31,
     BackwardInOutHalf  =  32,
 ```
+### In-Editor Ease:
 
+#### Declaration:
+
+You can cuse predefined or custom Ease Tweening Curve, and expose it in editor, by declaring:
+
+```csharp
+[SerializeField] Ease customEase;
+```
+
+#### Usage:
+Now you have ecess to exposed Ease definition, which you can use in any Tween:
+
+**Ease Drawer** allows you to use - preview and selection:
+
+![Easing Preview Anixmation](https://i.ibb.co/8rtVP28/Screenshot-2023-10-18-133954-waifu2x-4xxx.png)
+
+If you select the last type - "Custom", you can declare your own Ease Curve, which can be used as Ease everywhere:
+
+![Easing Preview Animation](https://i.ibb.co/mty0Tv0/Screenshot-2023-10-18-133954-waifu2x-4x-png.png)
+
+For example, by:
+ ```csharp
+Tween.Scale(transform, Vector3.zero).SetEase(myEase);
+```
 
 ## 📗 API Reference
 
